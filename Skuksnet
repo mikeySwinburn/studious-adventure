@@ -1,0 +1,49 @@
+{FileName: CharacterMoving
+	Description: moves circle around the screen on user input}
+
+program CharacterMoving;
+uses SwinGame, sgTypes;
+
+const
+	CIRCLE_RADIUS = 150;
+
+procedure Main();
+var 
+	x: Single;
+	y: Single;
+begin
+	OpenGraphicsWindow('Character Moving', 800, 600);
+	LoadDefaultColors();
+	y := 300;
+	x := 400;
+
+	repeat 
+		ProcessEvents();
+
+		if KeyDown(LeftKey) and (x - CIRCLE_RADIUS <> 0) then
+		begin
+			x -= 1;
+		end;
+		if KeyDown(RightKey) and (x + CIRCLE_RADIUS < ScreenWidth()) then
+		begin 
+			x += 1;
+		end;
+		
+		if KeyDown(UpKey) and (y - CIRCLE_RADIUS <> 0) then
+		begin
+			y -= 1;
+		end;
+		if KeyDown(DownKey) and (y + CIRCLE_RADIUS < ScreenHeight()) then
+		begin 
+			y += 1;
+		end;
+
+		ClearScreen(ColorWhite);
+		FillCircle(ColorGreen, x, y, CIRCLE_RADIUS);
+		RefreshScreen(60);
+	until WindowCloseRequested();
+end;
+
+begin
+	Main();
+end.
